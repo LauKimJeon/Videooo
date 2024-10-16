@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Video Interactivo</title>
   <style>
+    /* Mantiene el canvas y el video ocupando toda la pantalla */
     canvas, video {
       position: absolute;
       top: 0;
@@ -12,27 +13,78 @@
       width: 100vw;
       height: 100vh;
     }
+
+    /* Estilos para centrar el botón */
+    #playButton {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #ff5722;
+      color: white;
+      font-size: 24px;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    /* Estilo al hacer hover sobre el botón */
+    #playButton:hover {
+      background-color: #e64a19;
+      transform: translate(-50%, -50%) scale(1.05);
+    }
+
+    /* Ocultamos el video inicialmente */
+    video {
+      display: none;
+    }
+
+    /* Centrar el contenido en la página */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
   </style>
 </head>
 <body>
-  <!-- Video inicial -->
-  <video id="videoInicial" src="videos/Megan Thee Stallion - Neva Play (feat. RM) [Official Video].mp4" autoplay muted></video>
 
+  <!-- Video inicial oculto -->
+  <video id="videoInicial" src="videos/DiseñoPrimero.mp4" controls style="display:none;"></video>
+
+  <!-- Botón estilizado para reproducir el video -->
+  <button id="playButton">Reproducir Video</button>
   
+  <script>
+      let videoInicial = document.getElementById('videoInicial');
+      let playButton = document.getElementById('playButton');
+
+      playButton.addEventListener('click', function() {
+          playButton.style.display = 'none'; // Oculta el botón cuando se hace clic
+          videoInicial.style.display = 'block'; // Muestra el video
+          videoInicial.muted = false; // Asegúrate de que el video no esté en mute
+          videoInicial.play(); // Inicia la reproducción del video
+      });
+  </script>
+
   <!-- Canvas donde se mostrará el modelo 3D -->
   <canvas id="canvas3D" style="display:none;"></canvas>
   
   <!-- Video final -->
-  <video id="videoFinal" src="videos/Sabrina Carpenter - Please Please Please (Español + Lyrics) _ video musical.mp4" style="display:none;"></video>
+  <video id="videoFinal" src="videos\DiseñoSegundo.mp4" style="display:none;"></video>
 
   <!-- Cargar Three.js y el código del interactivo -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
   <script src="https://threejs.org/examples/js/loaders/GLTFLoader.js"></script>
-
   <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
   <script src="interactivo.js"></script>
  
-
 </body>
 </html>
